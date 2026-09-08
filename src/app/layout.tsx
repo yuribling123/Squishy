@@ -1,3 +1,4 @@
+// Defines document metadata, fonts, and the shared application layout.
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "慢慢捏｜把情绪揉软一点",
-  description: "做一只属于你的软软替身，捏一会儿，让情绪慢慢回弹。",
+  title: "小替身｜不用做得像，你知道是谁就好",
+  description: "给 TA 一个名字，再捏一下。一个属于你的小人工作台。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="zh-CN"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full bg-paper text-ink">{children}</body>
     </html>
   );
 }
