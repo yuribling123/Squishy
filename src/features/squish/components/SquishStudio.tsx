@@ -6,8 +6,7 @@ import { RotateCcw, ReceiptText } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { playSquishHaptic } from "../services/haptics";
 import { useSquishStore } from "../store/useSquishStore";
-import { QuickCustomizer, QUICK_RELATIONS } from "./QuickCustomizer";
-import { DreamAtmosphere } from "./DreamAtmosphere";
+import { QuickCustomizer } from "./QuickCustomizer";
 import { PlaygroundToolbar } from "./PlaygroundToolbar";
 import { ToolEffects } from "./ToolEffects";
 
@@ -32,7 +31,6 @@ export function SquishStudio() {
   const resetAvatar = useSquishStore((state) => state.resetAvatar);
   const squeezeCount = useSquishStore((state) => state.squeezeCount);
   const recordSqueeze = useSquishStore((state) => state.recordSqueeze);
-  const relation = QUICK_RELATIONS.find((item) => item.id === recipe.relation);
 
   useEffect(() => {
     if (previousMode.current === studioMode) return;
@@ -53,10 +51,10 @@ export function SquishStudio() {
 
   return (
     <main className={`relative isolate mx-auto min-h-svh px-5 sm:px-10 ${isPlaying ? "w-full" : "max-w-[1240px] lg:px-14"}`}>
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(ellipse_at_10%_20%,#c6d8bf55,transparent_45%),radial-gradient(ellipse_at_90%_80%,#ddc3bc55,transparent_50%)]" />
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[url('/paper-grain.svg')] opacity-20" />
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-20 bg-background" />
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[url('/paper-grain.svg')] opacity-5" />
       <header className={`items-center justify-center ${isPlaying ? "hidden" : "flex h-20 lg:h-24"}`}>
-        <h1 className="relative font-serif-cn text-[23px] font-normal tracking-[0.3em]">
+        <h1 className="relative  text-[23px] tracking-[0.2em]">
           小替身
         </h1>
       </header>
@@ -69,17 +67,26 @@ export function SquishStudio() {
           className={`relative min-w-0 outline-none ${isPlaying ? "mx-auto w-full max-w-[1100px]" : ""}`}
         >
           <div className={`relative ${isPlaying ? "h-[calc(100svh-290px)] min-h-[200px]" : "h-[300px] sm:h-[450px] lg:h-[510px]"}`}>
-            <DreamAtmosphere />
+            {isPlaying && (
+              <div className="pointer-events-none absolute inset-x-0 top-2 z-10 flex justify-center px-4">
+                <span className="max-w-full truncate font-serif-cn text-lg tracking-widest text-play-accent">
+                  {recipe.name.trim() || "小团"}
+                </span>
+              </div>
+            )}
             <div className="absolute inset-0 cursor-grab active:cursor-grabbing">
               <ToolEffects>
-              <AvatarCanvas
-                recipe={recipe}
-                material="mochi"
-                softness={56}
-                rebound={38}
-                resetKey={resetKey}
-                onSqueeze={handleSqueeze}
-              />
+            
+
+                {/* 3D人物 */}
+                <AvatarCanvas
+                  recipe={recipe}
+                  material="mochi"
+                  softness={56}
+                  rebound={38}
+                  resetKey={resetKey}
+                  onSqueeze={handleSqueeze}
+                />
               </ToolEffects>
             </div>
             {squeezeCount === 0 && !isPlaying && (
@@ -88,15 +95,10 @@ export function SquishStudio() {
               </span>
             )}
           </div>
-          <div className="flex justify-center">
-            <div className="relative flex max-w-full items-center gap-3 border-y border-accent/20 px-5 py-3">
-              <span className="max-w-40 truncate font-serif-cn text-lg tracking-widest">{recipe.name.trim() || "小团"}</span>
-              {relation && <span className="border-l border-line pl-3 text-[11px] text-accent">{relation.label}</span>}
-            </div>
-          </div>
+
 
           {isPlaying && <PlaygroundToolbar />}
-          <div className="mt-3 flex flex-wrap justify-center gap-2">
+          <div className={`mt-3 flex flex-wrap justify-center gap-2 ${isPlaying ? "[&_button]:text-play-muted [&_button:hover]:bg-play-selected [&_button:focus-visible]:outline-play-accent" : ""}`}>
             <button type="button" onClick={resetAvatar} className="flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full px-4 text-xs text-muted transition hover:bg-paper-deep hover:text-ink active:translate-y-0.5 motion-reduce:transform-none">
               <RotateCcw size={13} aria-hidden="true" />
               揉回原样
@@ -105,7 +107,7 @@ export function SquishStudio() {
               <button
                 type="button"
                 onClick={() => setStudioMode("edit")}
-                className="flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-accent/25 bg-paper/60 px-4 text-xs text-accent transition hover:bg-paper-deep"
+                className="flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-play-line bg-transparent px-4 text-xs text-play-muted transition hover:bg-play-selected"
               >
                 <ReceiptText size={14} aria-hidden="true" />
                 编辑小票
@@ -119,7 +121,7 @@ export function SquishStudio() {
           </div>
         )}
       </div>
-   
+
     </main>
   );
 }

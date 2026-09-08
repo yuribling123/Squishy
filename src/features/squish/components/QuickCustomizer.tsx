@@ -14,7 +14,7 @@ export const QUICK_RELATIONS: { id: AvatarRelation; label: string; symbol: strin
 
 function HairPreview({ style }: { style: number }) {
   return (
-    <svg viewBox="0 0 80 80" aria-hidden="true" className="h-16 w-16">
+    <svg viewBox="0 0 80 80" aria-hidden="true" className="h-16 w-16 grayscale">
       <ellipse cx="40" cy="70" rx="19" ry="3" fill="#e2ded5" />
       <rect x="23" y="54" width="34" height="16" rx="8" fill="#040c23e7" />
       <ellipse cx="40" cy="38" rx="21" ry="23" fill="#f0ba99" />
@@ -41,13 +41,13 @@ export function QuickCustomizer({ onPrint }: { onPrint: () => void }) {
   return (
     <section
       aria-label="小替身领养小票"
-      className="relative mx-auto w-[calc(100%-1rem)] max-w-[340px] bg-[#faf8ee] px-5 pt-7 pb-8 font-[family-name:var(--font-geist-mono)] text-ink shadow-[0_12px_30px_#49473712,0_2px_3px_#4947370a] sm:px-6 lg:w-full"
+      className="relative mx-auto w-[calc(100%-1rem)] max-w-[340px] bg-receipt px-5 pt-7 pb-8 font-[family-name:var(--font-geist-mono)] text-ink shadow-[0_12px_30px_#493b3912,0_2px_3px_#493b390a] sm:px-6 lg:w-full"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[url('/paper-grain.svg')] opacity-15" />
       <header className="relative border-b border-dashed border-ink/35 pb-5 text-center">
         <p className="text-[10px] tracking-[0.22em] text-muted">A LITTLE STAND-IN</p>
-        <h2 className="mt-2 text-xl font-semibold tracking-[0.35em]">小替身</h2>
-        <p className="mt-2 text-xs tracking-widest text-muted">一位小人的诞生凭证</p>
+
+
       </header>
       <div className="relative flex items-center gap-4 border-b border-dashed border-ink/35 py-3">
         <label htmlFor="avatar-name" className="shrink-0 text-xs">称呼</label>
@@ -70,7 +70,7 @@ export function QuickCustomizer({ onPrint }: { onPrint: () => void }) {
               type="button"
               aria-pressed={recipe.relation === id}
               onClick={() => updateRecipe({ relation: id })}
-              className={`flex min-h-11 cursor-pointer items-center gap-2 px-0.5 text-xs transition hover:text-accent ${recipe.relation === id ? "text-ink" : "text-muted"}`}
+              className={`flex min-h-11 cursor-pointer items-center gap-2 px-0.5 text-xs transition hover:text-accent ${recipe.relation === id ? "text-accent" : "text-muted"}`}
             >
               <span aria-hidden="true" className="grid h-3.5 w-3.5 place-items-center border border-current">
                 {recipe.relation === id && <Check size={13} strokeWidth={2} />}
@@ -89,7 +89,7 @@ export function QuickCustomizer({ onPrint }: { onPrint: () => void }) {
               type="button"
               aria-pressed={recipe.hairStyle === index}
               onClick={() => updateRecipe({ hairStyle: index })}
-              className={`relative flex cursor-pointer flex-col items-center border pt-2 pb-3 text-[11px] grayscale transition active:translate-y-0.5 motion-reduce:transform-none ${recipe.hairStyle === index ? "border-ink/45 text-ink" : "border-transparent text-muted hover:border-ink/20"}`}
+              className={`relative flex cursor-pointer flex-col items-center border pt-2 pb-3 text-[11px] transition active:translate-y-0.5 motion-reduce:transform-none ${recipe.hairStyle === index ? "border-accent/55 text-accent" : "border-transparent text-muted hover:border-accent/20"}`}
             >
               {recipe.hairStyle === index && <Check size={12} className="absolute top-2 right-2" aria-hidden="true" />}
               <HairPreview style={index} />
@@ -114,7 +114,7 @@ export function QuickCustomizer({ onPrint }: { onPrint: () => void }) {
         <p className="mt-4 text-[11px] text-muted">不用做得像，你知道就好。</p>
         <p className="mt-2 text-[9px] tracking-[0.16em] text-muted">KEEP YOUR LITTLE SOMEONE.</p>
       </footer>
-      <svg aria-hidden="true" viewBox="0 0 320 10" preserveAspectRatio="none" className="pointer-events-none absolute -bottom-2 inset-x-0 h-2 w-full fill-[#faf8ee]">
+      <svg aria-hidden="true" viewBox="0 0 320 10" preserveAspectRatio="none" className="pointer-events-none absolute -bottom-2 inset-x-0 h-2 w-full fill-receipt">
         <path d="M0 0H320V2L312 10 304 2 296 10 288 2 280 10 272 2 264 10 256 2 248 10 240 2 232 10 224 2 216 10 208 2 200 10 192 2 184 10 176 2 168 10 160 2 152 10 144 2 136 10 128 2 120 10 112 2 104 10 96 2 88 10 80 2 72 10 64 2 56 10 48 2 40 10 32 2 24 10 16 2 8 10 0 2Z" />
       </svg>
     </section>
