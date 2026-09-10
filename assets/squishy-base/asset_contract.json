@@ -1,0 +1,1348 @@
+{
+  "schema": "squishy-asset-v1",
+  "skeletonId": "squishy-humanoid-palm-v2",
+  "authoringAxes": "Blender Z-up, front -Y, anatomical left +X",
+  "exportAxes": "glTF Y-up, front +Z, anatomical left +X",
+  "unit": "meter",
+  "heightApprox": 2.66,
+  "headHeight": 0.99,
+  "headRatioApprox": 2.69,
+  "morphNames": [
+    "Squash",
+    "Stretch",
+    "Flatten",
+    "HeadSquash",
+    "FacePullLeft",
+    "FacePullRight",
+    "FaceStretch",
+    "FaceSquash"
+  ],
+  "morphRange": [
+    0,
+    1
+  ],
+  "morphPolicy": "Synchronize matching targets on ALL active meshes. Test combinations; do not max every target together.",
+  "physicsPolicy": "No baked physics. Drive pose bones with runtime rigid bodies. Global morphs move geometry away from rest joints; refit colliders/anchors or separate whole-body morph mode from ragdoll mode.",
+  "replacementPolicy": "Variants must share rig rest matrices, identity mesh transforms, weights, and the same deformation field. Rebind loaded variant to the active skeleton; do not retain a second animated skeleton.",
+  "optionalGlasses": "glasses_soft_square.glb (not included in default visible character)",
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "headBlender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tailBlender": [
+        0.0,
+        0.0,
+        0.17307692307692307
+      ],
+      "headWeb": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tailWeb": [
+        0.0,
+        0.17307692307692307,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Pelvis",
+      "parent": "Root",
+      "headBlender": [
+        0.0,
+        0.0,
+        0.8652
+      ],
+      "tailBlender": [
+        0.0,
+        0.0,
+        1.081
+      ],
+      "headWeb": [
+        0.0,
+        0.8652,
+        -0.0
+      ],
+      "tailWeb": [
+        0.0,
+        1.081,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.8651999831199646
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.22,
+        "centerWeb": [
+          0.0,
+          0.973099946975708,
+          -0.0
+        ],
+        "axisWeb": [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        "halfHeight": 0.015,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      }
+    },
+    {
+      "name": "Chest",
+      "parent": "Pelvis",
+      "headBlender": [
+        0.0,
+        0.0,
+        1.081
+      ],
+      "tailBlender": [
+        0.0,
+        0.0,
+        1.48
+      ],
+      "headWeb": [
+        0.0,
+        1.081,
+        -0.0
+      ],
+      "tailWeb": [
+        0.0,
+        1.48,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          1.0809999704360962
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.22,
+        "centerWeb": [
+          0.0,
+          1.2804999351501465,
+          -0.0
+        ],
+        "axisWeb": [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        "halfHeight": 0.015,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "jointAnchorParentLocal": [
+        0.0,
+        0.2157999873161316,
+        0.0
+      ]
+    },
+    {
+      "name": "Neck",
+      "parent": "Chest",
+      "headBlender": [
+        0.0,
+        0.0,
+        1.48
+      ],
+      "tailBlender": [
+        0.0,
+        0.0,
+        1.615
+      ],
+      "headWeb": [
+        0.0,
+        1.48,
+        -0.0
+      ],
+      "tailWeb": [
+        0.0,
+        1.615,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          1.4800000190734863
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.1,
+        "centerWeb": [
+          0.0,
+          1.5475000143051147,
+          -0.0
+        ],
+        "axisWeb": [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        "halfHeight": 0.015,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "jointAnchorParentLocal": [
+        0.0,
+        0.39900004863739014,
+        0.0
+      ]
+    },
+    {
+      "name": "Head",
+      "parent": "Neck",
+      "headBlender": [
+        0.0,
+        0.0,
+        1.615
+      ],
+      "tailBlender": [
+        0.0,
+        0.0,
+        2.5050000000000003
+      ],
+      "headWeb": [
+        0.0,
+        1.615,
+        -0.0
+      ],
+      "tailWeb": [
+        0.0,
+        2.5050000000000003,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          1.6150000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.43,
+        "centerWeb": [
+          0.0,
+          2.059999942779541,
+          -0.0
+        ],
+        "axisWeb": [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        "halfHeight": 0.01500005368435997,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "jointAnchorParentLocal": [
+        0.0,
+        0.13499999046325684,
+        0.0
+      ]
+    },
+    {
+      "name": "UpperArm.L",
+      "parent": "Chest",
+      "headBlender": [
+        0.43,
+        0.0,
+        1.442
+      ],
+      "tailBlender": [
+        0.62,
+        0.0,
+        1.2203333333333335
+      ],
+      "headWeb": [
+        0.43,
+        1.442,
+        -0.0
+      ],
+      "tailWeb": [
+        0.62,
+        1.2203333333333335,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          0.5764707326889038,
+          0.6507914066314697,
+          0.4941176176071167,
+          0.4300000071525574
+        ],
+        [
+          -0.6507914662361145,
+          0.0,
+          0.7592566609382629,
+          0.0
+        ],
+        [
+          0.49411800503730774,
+          -0.7592567205429077,
+          0.42352932691574097,
+          1.4420000314712524
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.12,
+        "centerWeb": [
+          0.5249999761581421,
+          1.3311667442321777,
+          -0.0
+        ],
+        "axisWeb": [
+          0.650791347026825,
+          -0.7592566609382629,
+          -0.0
+        ],
+        "halfHeight": 0.0259761322051891,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        -7.450580596923828e-08,
+        0.0,
+        1.4901161193847656e-08
+      ],
+      "jointAnchorParentLocal": [
+        0.4300000071525574,
+        0.36100006103515625,
+        0.0
+      ]
+    },
+    {
+      "name": "LowerArm.L",
+      "parent": "UpperArm.L",
+      "headBlender": [
+        0.62,
+        0.0,
+        1.2203333333333335
+      ],
+      "tailBlender": [
+        0.722,
+        -0.0162,
+        1.0303333333333333
+      ],
+      "headWeb": [
+        0.62,
+        1.2203333333333335,
+        -0.0
+      ],
+      "tailWeb": [
+        0.722,
+        1.0303333333333333,
+        0.0162
+      ],
+      "restMatrixBlender": [
+        [
+          0.7595181465148926,
+          0.4716641902923584,
+          0.44795671105384827,
+          0.6200000047683716
+        ],
+        [
+          -0.4716643691062927,
+          -0.07491141557693481,
+          0.87859046459198,
+          0.0
+        ],
+        [
+          0.44795703887939453,
+          -0.87859046459198,
+          0.1655704379081726,
+          1.2203333377838135
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.12,
+        "centerWeb": [
+          0.6710000038146973,
+          1.125333309173584,
+          0.008100000210106373
+        ],
+        "axisWeb": [
+          0.4716641902923584,
+          -0.87859046459198,
+          0.07491137832403183
+        ],
+        "halfHeight": 0.015,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        2.9802322387695312e-08,
+        -1.4901161193847656e-07,
+        -1.4901161193847656e-08
+      ],
+      "jointAnchorParentLocal": [
+        -5.960464477539063e-08,
+        0.2919522225856781,
+        -2.9802322387695312e-08
+      ]
+    },
+    {
+      "name": "Hand.L",
+      "parent": "LowerArm.L",
+      "headBlender": [
+        0.722,
+        -0.0162,
+        1.0303333333333333
+      ],
+      "tailBlender": [
+        0.756,
+        -0.027000000000000003,
+        0.9036
+      ],
+      "headWeb": [
+        0.722,
+        1.0303333333333333,
+        0.0162
+      ],
+      "tailWeb": [
+        0.756,
+        0.9036,
+        0.027000000000000003
+      ],
+      "restMatrixBlender": [
+        [
+          0.9273508787155151,
+          0.2582436501979828,
+          0.270796537399292,
+          0.722000002861023
+        ],
+        [
+          -0.2582438886165619,
+          -0.08203040063381195,
+          0.9625908732414246,
+          -0.016200006008148193
+        ],
+        [
+          0.27079686522483826,
+          -0.9625908732414246,
+          -0.009381338953971863,
+          1.0303332805633545
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.1,
+        "centerWeb": [
+          0.7389999628067017,
+          0.9669666290283203,
+          0.02160000056028366
+        ],
+        "axisWeb": [
+          0.2582436800003052,
+          -0.9625909328460693,
+          0.08203039318323135
+        ],
+        "halfHeight": 0.015,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        -1.4901161193847656e-08,
+        4.0512531995773315e-08,
+        -8.381903171539307e-09
+      ],
+      "jointAnchorParentLocal": [
+        -1.3969838619232178e-09,
+        0.21625538170337677,
+        -7.450580596923828e-09
+      ]
+    },
+    {
+      "name": "UpperLeg.L",
+      "parent": "Pelvis",
+      "headBlender": [
+        0.225,
+        0.0,
+        0.9036
+      ],
+      "tailBlender": [
+        0.235,
+        -0.01944,
+        0.59
+      ],
+      "headWeb": [
+        0.225,
+        0.9036,
+        -0.0
+      ],
+      "tailWeb": [
+        0.235,
+        0.59,
+        0.01944
+      ],
+      "restMatrixBlender": [
+        [
+          0.9989227056503296,
+          0.03181058540940285,
+          0.033825457096099854,
+          0.22499999403953552
+        ],
+        [
+          -0.03180587291717529,
+          -0.06183972209692001,
+          0.9975835084915161,
+          0.0
+        ],
+        [
+          0.03382524102926254,
+          -0.9975790977478027,
+          -0.06076103076338768,
+          0.9035999774932861
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.14,
+        "centerWeb": [
+          0.22999998927116394,
+          0.7467999458312988,
+          0.009720000438392162
+        ],
+        "axisWeb": [
+          0.03181057423353195,
+          -0.997579038143158,
+          0.06183972209692001
+        ],
+        "halfHeight": 0.01718052763557043,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        -7.450580596923828e-09,
+        3.725290298461914e-08,
+        1.3969838619232178e-09
+      ],
+      "jointAnchorParentLocal": [
+        0.22499999403953552,
+        0.03839999437332153,
+        0.0
+      ]
+    },
+    {
+      "name": "LowerLeg.L",
+      "parent": "UpperLeg.L",
+      "headBlender": [
+        0.235,
+        -0.01944,
+        0.59
+      ],
+      "tailBlender": [
+        0.24,
+        0.0,
+        0.27
+      ],
+      "headWeb": [
+        0.235,
+        0.59,
+        0.01944
+      ],
+      "tailWeb": [
+        0.24,
+        0.27,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          0.9997720718383789,
+          0.01559433527290821,
+          0.014674164354801178,
+          0.23499999940395355
+        ],
+        [
+          -0.015589550137519836,
+          0.06063088774681091,
+          0.9980427622795105,
+          -0.019440000876784325
+        ],
+        [
+          0.014673984609544277,
+          -0.9980384707450867,
+          0.06085978075861931,
+          0.5899999141693115
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.14,
+        "centerWeb": [
+          0.23749999701976776,
+          0.4300000071525574,
+          0.009720000438392162
+        ],
+        "axisWeb": [
+          0.015594336204230785,
+          -0.9980383515357971,
+          -0.06063083931803703
+        ],
+        "halfHeight": 0.020314447773294636,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        -4.0745362639427185e-10,
+        -3.841705620288849e-09,
+        -6.984919309616089e-10
+      ],
+      "jointAnchorParentLocal": [
+        -1.792795956134796e-08,
+        0.3143610656261444,
+        -1.862645149230957e-09
+      ]
+    },
+    {
+      "name": "Foot.L",
+      "parent": "LowerLeg.L",
+      "headBlender": [
+        0.24,
+        0.0,
+        0.27
+      ],
+      "tailBlender": [
+        0.24,
+        -0.3132,
+        0.09692307692307695
+      ],
+      "headWeb": [
+        0.24,
+        0.27,
+        -0.0
+      ],
+      "tailWeb": [
+        0.24,
+        0.09692307692307695,
+        0.3132
+      ],
+      "restMatrixBlender": [
+        [
+          1.000001311302185,
+          9.313225746154785e-10,
+          1.210719347000122e-08,
+          0.23999999463558197
+        ],
+        [
+          4.941597580909729e-06,
+          -0.875252902507782,
+          0.48367413878440857,
+          9.313225746154785e-09
+        ],
+        [
+          -3.236345946788788e-08,
+          -0.4836721122264862,
+          -0.8752493262290955,
+          0.27000001072883606
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.1,
+        "centerWeb": [
+          0.23999999463558197,
+          0.18346154689788818,
+          0.1565999984741211
+        ],
+        "axisWeb": [
+          0.0,
+          -0.48367056250572205,
+          0.8752502202987671
+        ],
+        "halfHeight": 0.0789202779888177,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        -1.1918403153288182e-08,
+        -8.81266259966651e-09,
+        7.23048287909478e-10
+      ],
+      "jointAnchorParentLocal": [
+        6.05359673500061e-09,
+        0.3206288516521454,
+        -1.1175870895385742e-08
+      ]
+    },
+    {
+      "name": "UpperArm.R",
+      "parent": "Chest",
+      "headBlender": [
+        -0.43,
+        0.0,
+        1.442
+      ],
+      "tailBlender": [
+        -0.62,
+        0.0,
+        1.2203333333333335
+      ],
+      "headWeb": [
+        -0.43,
+        1.442,
+        -0.0
+      ],
+      "tailWeb": [
+        -0.62,
+        1.2203333333333335,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          0.5764707326889038,
+          -0.6507914066314697,
+          -0.4941176176071167,
+          -0.4300000071525574
+        ],
+        [
+          0.6507914662361145,
+          0.0,
+          0.7592566609382629,
+          0.0
+        ],
+        [
+          -0.49411800503730774,
+          -0.7592567205429077,
+          0.42352932691574097,
+          1.4420000314712524
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.12,
+        "centerWeb": [
+          -0.5249999761581421,
+          1.3311667442321777,
+          -0.0
+        ],
+        "axisWeb": [
+          -0.650791347026825,
+          -0.7592566609382629,
+          -0.0
+        ],
+        "halfHeight": 0.0259761322051891,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        7.450580596923828e-08,
+        0.0,
+        1.4901161193847656e-08
+      ],
+      "jointAnchorParentLocal": [
+        -0.4300000071525574,
+        0.36100006103515625,
+        0.0
+      ]
+    },
+    {
+      "name": "LowerArm.R",
+      "parent": "UpperArm.R",
+      "headBlender": [
+        -0.62,
+        0.0,
+        1.2203333333333335
+      ],
+      "tailBlender": [
+        -0.722,
+        -0.0162,
+        1.0303333333333333
+      ],
+      "headWeb": [
+        -0.62,
+        1.2203333333333335,
+        -0.0
+      ],
+      "tailWeb": [
+        -0.722,
+        1.0303333333333333,
+        0.0162
+      ],
+      "restMatrixBlender": [
+        [
+          0.7595181465148926,
+          -0.4716641902923584,
+          -0.44795671105384827,
+          -0.6200000047683716
+        ],
+        [
+          0.4716643691062927,
+          -0.07491141557693481,
+          0.87859046459198,
+          0.0
+        ],
+        [
+          -0.44795703887939453,
+          -0.87859046459198,
+          0.1655704379081726,
+          1.2203333377838135
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.12,
+        "centerWeb": [
+          -0.6710000038146973,
+          1.125333309173584,
+          0.008100000210106373
+        ],
+        "axisWeb": [
+          -0.4716641902923584,
+          -0.87859046459198,
+          0.07491137832403183
+        ],
+        "halfHeight": 0.015,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        -2.9802322387695312e-08,
+        -1.4901161193847656e-07,
+        -1.4901161193847656e-08
+      ],
+      "jointAnchorParentLocal": [
+        5.960464477539063e-08,
+        0.2919522225856781,
+        -2.9802322387695312e-08
+      ]
+    },
+    {
+      "name": "Hand.R",
+      "parent": "LowerArm.R",
+      "headBlender": [
+        -0.722,
+        -0.0162,
+        1.0303333333333333
+      ],
+      "tailBlender": [
+        -0.756,
+        -0.027000000000000003,
+        0.9036
+      ],
+      "headWeb": [
+        -0.722,
+        1.0303333333333333,
+        0.0162
+      ],
+      "tailWeb": [
+        -0.756,
+        0.9036,
+        0.027000000000000003
+      ],
+      "restMatrixBlender": [
+        [
+          0.9273508787155151,
+          -0.2582436501979828,
+          -0.270796537399292,
+          -0.722000002861023
+        ],
+        [
+          0.2582438886165619,
+          -0.08203040063381195,
+          0.9625908732414246,
+          -0.016200006008148193
+        ],
+        [
+          -0.27079686522483826,
+          -0.9625908732414246,
+          -0.009381338953971863,
+          1.0303332805633545
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.1,
+        "centerWeb": [
+          -0.7389999628067017,
+          0.9669666290283203,
+          0.02160000056028366
+        ],
+        "axisWeb": [
+          -0.2582436800003052,
+          -0.9625909328460693,
+          0.08203039318323135
+        ],
+        "halfHeight": 0.015,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        1.4901161193847656e-08,
+        4.0512531995773315e-08,
+        -8.381903171539307e-09
+      ],
+      "jointAnchorParentLocal": [
+        1.3969838619232178e-09,
+        0.21625538170337677,
+        -7.450580596923828e-09
+      ]
+    },
+    {
+      "name": "UpperLeg.R",
+      "parent": "Pelvis",
+      "headBlender": [
+        -0.225,
+        0.0,
+        0.9036
+      ],
+      "tailBlender": [
+        -0.235,
+        -0.01944,
+        0.59
+      ],
+      "headWeb": [
+        -0.225,
+        0.9036,
+        -0.0
+      ],
+      "tailWeb": [
+        -0.235,
+        0.59,
+        0.01944
+      ],
+      "restMatrixBlender": [
+        [
+          0.9989227056503296,
+          -0.03181058540940285,
+          -0.033825457096099854,
+          -0.22499999403953552
+        ],
+        [
+          0.03180587291717529,
+          -0.06183972209692001,
+          0.9975835084915161,
+          0.0
+        ],
+        [
+          -0.03382524102926254,
+          -0.9975790977478027,
+          -0.06076103076338768,
+          0.9035999774932861
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.14,
+        "centerWeb": [
+          -0.22999998927116394,
+          0.7467999458312988,
+          0.009720000438392162
+        ],
+        "axisWeb": [
+          -0.03181057423353195,
+          -0.997579038143158,
+          0.06183972209692001
+        ],
+        "halfHeight": 0.01718052763557043,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        7.450580596923828e-09,
+        3.725290298461914e-08,
+        1.3969838619232178e-09
+      ],
+      "jointAnchorParentLocal": [
+        -0.22499999403953552,
+        0.03839999437332153,
+        0.0
+      ]
+    },
+    {
+      "name": "LowerLeg.R",
+      "parent": "UpperLeg.R",
+      "headBlender": [
+        -0.235,
+        -0.01944,
+        0.59
+      ],
+      "tailBlender": [
+        -0.24,
+        0.0,
+        0.27
+      ],
+      "headWeb": [
+        -0.235,
+        0.59,
+        0.01944
+      ],
+      "tailWeb": [
+        -0.24,
+        0.27,
+        -0.0
+      ],
+      "restMatrixBlender": [
+        [
+          0.9997720718383789,
+          -0.01559433527290821,
+          -0.014674164354801178,
+          -0.23499999940395355
+        ],
+        [
+          0.015589550137519836,
+          0.06063088774681091,
+          0.9980427622795105,
+          -0.019440000876784325
+        ],
+        [
+          -0.014673984609544277,
+          -0.9980384707450867,
+          0.06085978075861931,
+          0.5899999141693115
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.14,
+        "centerWeb": [
+          -0.23749999701976776,
+          0.4300000071525574,
+          0.009720000438392162
+        ],
+        "axisWeb": [
+          -0.015594336204230785,
+          -0.9980383515357971,
+          -0.06063083931803703
+        ],
+        "halfHeight": 0.020314447773294636,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        4.0745362639427185e-10,
+        -3.841705620288849e-09,
+        -6.984919309616089e-10
+      ],
+      "jointAnchorParentLocal": [
+        1.792795956134796e-08,
+        0.3143610656261444,
+        -1.862645149230957e-09
+      ]
+    },
+    {
+      "name": "Foot.R",
+      "parent": "LowerLeg.R",
+      "headBlender": [
+        -0.24,
+        0.0,
+        0.27
+      ],
+      "tailBlender": [
+        -0.24,
+        -0.3132,
+        0.09692307692307695
+      ],
+      "headWeb": [
+        -0.24,
+        0.27,
+        -0.0
+      ],
+      "tailWeb": [
+        -0.24,
+        0.09692307692307695,
+        0.3132
+      ],
+      "restMatrixBlender": [
+        [
+          1.000001311302185,
+          -9.313225746154785e-10,
+          -1.210719347000122e-08,
+          -0.23999999463558197
+        ],
+        [
+          -4.941597580909729e-06,
+          -0.875252902507782,
+          0.48367413878440857,
+          9.313225746154785e-09
+        ],
+        [
+          3.236345946788788e-08,
+          -0.4836721122264862,
+          -0.8752493262290955,
+          0.27000001072883606
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "suggestedCollider": {
+        "type": "capsule",
+        "radius": 0.1,
+        "centerWeb": [
+          -0.23999999463558197,
+          0.18346154689788818,
+          0.1565999984741211
+        ],
+        "axisWeb": [
+          0.0,
+          -0.48367056250572205,
+          0.8752502202987671
+        ],
+        "halfHeight": 0.0789202779888177,
+        "note": "Initial fitting hint only; refit for clothing, morphs and final runtime scale."
+      },
+      "jointAnchorChildLocal": [
+        1.1918403153288182e-08,
+        -8.81266259966651e-09,
+        7.23048287909478e-10
+      ],
+      "jointAnchorParentLocal": [
+        -6.05359673500061e-09,
+        0.3206288516521454,
+        -1.1175870895385742e-08
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Body",
+      "slot": "body",
+      "vertices": 1837,
+      "triangles": 3654
+    },
+    {
+      "name": "Head",
+      "slot": "head",
+      "vertices": 3080,
+      "triangles": 6156
+    },
+    {
+      "name": "Eyes",
+      "slot": "eyes",
+      "vertices": 724,
+      "triangles": 1440
+    },
+    {
+      "name": "Eyebrows",
+      "slot": "eyebrows",
+      "vertices": 308,
+      "triangles": 608
+    },
+    {
+      "name": "FaceDetails",
+      "slot": "face-details",
+      "vertices": 154,
+      "triangles": 304
+    },
+    {
+      "name": "Hair_Comma",
+      "slot": "hair",
+      "vertices": 2857,
+      "triangles": 5726
+    },
+    {
+      "name": "Top_BlackTshirt",
+      "slot": "tops",
+      "vertices": 1839,
+      "triangles": 3674
+    },
+    {
+      "name": "Bottom_WidePants",
+      "slot": "bottoms",
+      "vertices": 1404,
+      "triangles": 2804
+    },
+    {
+      "name": "Socks",
+      "slot": "socks",
+      "vertices": 204,
+      "triangles": 400
+    },
+    {
+      "name": "Shoes_Chunky",
+      "slot": "shoes",
+      "vertices": 2404,
+      "triangles": 4768
+    }
+  ]
+}

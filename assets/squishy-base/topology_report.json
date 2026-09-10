@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "meshes": [
+    {
+      "mesh": "Body",
+      "vertices": 1860,
+      "faces": 3339,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Head",
+      "vertices": 3080,
+      "faces": 5334,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Eyes",
+      "vertices": 724,
+      "faces": 768,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Eyebrows",
+      "vertices": 308,
+      "faces": 320,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "FaceDetails",
+      "vertices": 154,
+      "faces": 160,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Hair_Comma",
+      "vertices": 2857,
+      "faces": 4846,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Top_BlackTshirt",
+      "vertices": 1721,
+      "faces": 2878,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Bottom_WidePants",
+      "vertices": 1404,
+      "faces": 2331,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Socks",
+      "vertices": 204,
+      "faces": 240,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "mesh": "Shoes_Chunky",
+      "vertices": 2404,
+      "faces": 2560,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0
+    }
+  ]
+}

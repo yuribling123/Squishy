@@ -1,0 +1,332 @@
+{
+  "loader": "Three.js GLTFLoader",
+  "assets": [
+    {
+      "filename": "squishy_base.glb",
+      "bytes": 2852332,
+      "drawPrimitives": 12,
+      "triangles": 29534,
+      "exportedVertices": 14811,
+      "bones": [
+        "Root",
+        "Pelvis",
+        "Chest",
+        "Neck",
+        "Head",
+        "UpperArmL",
+        "LowerArmL",
+        "HandL",
+        "UpperArmR",
+        "LowerArmR",
+        "HandR",
+        "UpperLegL",
+        "LowerLegL",
+        "FootL",
+        "UpperLegR",
+        "LowerLegR",
+        "FootR"
+      ],
+      "morphs": {
+        "Squash": {
+          "changedVertices": 14811,
+          "size": [
+            1.9416678008417754,
+            1.9374404628873367,
+            1.2553699016571045
+          ]
+        },
+        "Stretch": {
+          "changedVertices": 14811,
+          "size": [
+            1.4480234299086772,
+            3.4236959968552916,
+            0.9362080991268158
+          ]
+        },
+        "Flatten": {
+          "changedVertices": 14811,
+          "size": [
+            2.0074871156086296,
+            2.5478667768315,
+            0.3829942047595978
+          ]
+        },
+        "HeadSquash": {
+          "changedVertices": 7228,
+          "size": [
+            1.7983058094978333,
+            2.478653905082619,
+            1.20217627286911
+          ]
+        },
+        "FacePullLeft": {
+          "changedVertices": 5268,
+          "size": [
+            1.6486537916002286,
+            2.6540279361495136,
+            1.08474463224411
+          ]
+        },
+        "FacePullRight": {
+          "changedVertices": 5263,
+          "size": [
+            1.6505740741154276,
+            2.6540279361495136,
+            1.084917664527893
+          ]
+        },
+        "FaceStretch": {
+          "changedVertices": 5269,
+          "size": [
+            1.6454812011915778,
+            2.6540279361495136,
+            1.0950369238853455
+          ]
+        },
+        "FaceSquash": {
+          "changedVertices": 5277,
+          "size": [
+            1.6454812011915778,
+            2.6540279361495136,
+            1.1075025796890259
+          ]
+        }
+      },
+      "poseChecks": [
+        {
+          "bone": "Pelvis",
+          "changedVertices": 14811
+        },
+        {
+          "bone": "Chest",
+          "changedVertices": 9913
+        },
+        {
+          "bone": "Neck",
+          "changedVertices": 7283
+        },
+        {
+          "bone": "Head",
+          "changedVertices": 7219
+        },
+        {
+          "bone": "UpperArmL",
+          "changedVertices": 966
+        },
+        {
+          "bone": "LowerArmL",
+          "changedVertices": 506
+        },
+        {
+          "bone": "HandL",
+          "changedVertices": 149
+        },
+        {
+          "bone": "UpperArmR",
+          "changedVertices": 966
+        },
+        {
+          "bone": "LowerArmR",
+          "changedVertices": 501
+        },
+        {
+          "bone": "HandR",
+          "changedVertices": 145
+        },
+        {
+          "bone": "UpperLegL",
+          "changedVertices": 2180
+        },
+        {
+          "bone": "LowerLegL",
+          "changedVertices": 1900
+        },
+        {
+          "bone": "FootL",
+          "changedVertices": 1344
+        },
+        {
+          "bone": "UpperLegR",
+          "changedVertices": 2172
+        },
+        {
+          "bone": "LowerLegR",
+          "changedVertices": 1889
+        },
+        {
+          "bone": "FootR",
+          "changedVertices": 1343
+        }
+      ],
+      "restSize": [
+        1.6454812011915778,
+        2.6540279361495136,
+        1.0638728141784668
+      ]
+    },
+    {
+      "filename": "glasses_soft_square.glb",
+      "bytes": 323920,
+      "drawPrimitives": 1,
+      "triangles": 2512,
+      "exportedVertices": 1266,
+      "bones": [
+        "Root",
+        "Pelvis",
+        "Chest",
+        "Neck",
+        "Head",
+        "UpperArmL",
+        "LowerArmL",
+        "HandL",
+        "UpperArmR",
+        "LowerArmR",
+        "HandR",
+        "UpperLegL",
+        "LowerLegL",
+        "FootL",
+        "UpperLegR",
+        "LowerLegR",
+        "FootR"
+      ],
+      "morphs": {
+        "Squash": {
+          "changedVertices": 1266,
+          "size": [
+            1.5536688566207886,
+            0.14016008377075195,
+            0.6105529852211475
+          ]
+        },
+        "Stretch": {
+          "changedVertices": 1266,
+          "size": [
+            1.1586682796478271,
+            0.2476801872253418,
+            0.45532764308154583
+          ]
+        },
+        "Flatten": {
+          "changedVertices": 1266,
+          "size": [
+            1.6063356399536133,
+            0.1843200922012329,
+            0.18627039715647697
+          ]
+        },
+        "HeadSquash": {
+          "changedVertices": 1266,
+          "size": [
+            1.6326689720153809,
+            0.13824009895324707,
+            0.5846820883452892
+          ]
+        },
+        "FacePullLeft": {
+          "changedVertices": 1266,
+          "size": [
+            1.5215219259262085,
+            0.20461630821228027,
+            0.5745704509317875
+          ]
+        },
+        "FacePullRight": {
+          "changedVertices": 1266,
+          "size": [
+            1.5215219259262085,
+            0.20461630821228027,
+            0.5745704509317875
+          ]
+        },
+        "FaceStretch": {
+          "changedVertices": 1266,
+          "size": [
+            1.5132172107696533,
+            0.21120023727416992,
+            0.5463747009634972
+          ]
+        },
+        "FaceSquash": {
+          "changedVertices": 1266,
+          "size": [
+            1.350130319595337,
+            0.1363201141357422,
+            0.5579574555158615
+          ]
+        }
+      },
+      "poseChecks": [
+        {
+          "bone": "Pelvis",
+          "changedVertices": 1266
+        },
+        {
+          "bone": "Chest",
+          "changedVertices": 1266
+        },
+        {
+          "bone": "Neck",
+          "changedVertices": 1266
+        },
+        {
+          "bone": "Head",
+          "changedVertices": 1266
+        },
+        {
+          "bone": "UpperArmL",
+          "changedVertices": 0
+        },
+        {
+          "bone": "LowerArmL",
+          "changedVertices": 0
+        },
+        {
+          "bone": "HandL",
+          "changedVertices": 0
+        },
+        {
+          "bone": "UpperArmR",
+          "changedVertices": 0
+        },
+        {
+          "bone": "LowerArmR",
+          "changedVertices": 0
+        },
+        {
+          "bone": "HandR",
+          "changedVertices": 0
+        },
+        {
+          "bone": "UpperLegL",
+          "changedVertices": 0
+        },
+        {
+          "bone": "LowerLegL",
+          "changedVertices": 0
+        },
+        {
+          "bone": "FootL",
+          "changedVertices": 0
+        },
+        {
+          "bone": "UpperLegR",
+          "changedVertices": 0
+        },
+        {
+          "bone": "LowerLegR",
+          "changedVertices": 0
+        },
+        {
+          "bone": "FootR",
+          "changedVertices": 0
+        }
+      ],
+      "restSize": [
+        1.3166685104370117,
+        0.192000150680542,
+        0.5174177847802639
+      ]
+    }
+  ],
+  "passed": true
+}

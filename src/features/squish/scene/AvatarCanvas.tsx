@@ -4,7 +4,7 @@
 import { ContactShadows, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import type { AvatarRecipe, MaterialKind } from "../domain/avatar.types";
-import { Avatar } from "./Avatar";
+import { BasisAvatar } from "./BasisAvatar";
 import { SceneLighting } from "./SceneLighting";
 import { useSquishStore } from "../store/useSquishStore";
 
@@ -18,8 +18,6 @@ type AvatarCanvasProps = {
 };
 
 export default function AvatarCanvas({
-  recipe,
-  material,
   softness,
   rebound,
   resetKey,
@@ -31,7 +29,7 @@ export default function AvatarCanvas({
       key={resetKey}
       shadows
       dpr={[1, 1.7]}
-      camera={{ position: [0, 0.15, 9.5], fov: 42 }}
+      camera={{ position: [0, 0.15, 8], fov: 42 }}
       gl={{
         antialias: true,
         alpha: true,
@@ -40,9 +38,7 @@ export default function AvatarCanvas({
       style={{ touchAction: "none" }}
     >
       <SceneLighting />
-      <Avatar
-        recipe={recipe}
-        material={material}
+      <BasisAvatar
         softness={softness}
         rebound={rebound}
         onSqueeze={onSqueeze}
