@@ -35,7 +35,10 @@ export type BasisSurface = {
 };
 
 export function isDragDeformablePart(name: string) {
-  return name === "RoundFullFace" || name.startsWith("Ear_");
+  return name === "RoundFullFace"
+    || name.startsWith("Ear_")
+    || name.startsWith("SmallArm_")
+    || name.startsWith("BareFoot_");
 }
 
 export function describeBasisPart(name: string) {

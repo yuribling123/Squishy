@@ -29,6 +29,7 @@ const tangentialDirection = new Vector3();
 const cameraRight = new Vector3();
 const cameraUp = new Vector3();
 const inverseGroupMatrix = new Matrix4();
+const contactOffset = new Vector3();
 
 export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvatarProps) {
   const { scene } = useGLTF("/models/basis-character.glb");
@@ -96,7 +97,7 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
 
   useFrame((_, delta) => {
     const state = press.current;
-    const depth = 0.085 + softness * 0.0015;
+    const depth = (0.085 + softness * 0.0015) * 5;
     const spring = stepSpring(
       { displacement: state.displacement, velocity: state.velocity },
       state.active ? depth : 0,
@@ -129,8 +130,14 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
         vertexPosition.fromArray(surface.rest, index);
         vertexNormal.fromArray(surface.normals, index);
         const facing = Math.max(0, -vertexNormal.dot(state.direction));
+        contactOffset.copy(vertexPosition).sub(state.point);
+        const axialDistance = contactOffset.dot(state.direction);
+        const radialDistanceSquared = Math.max(
+          0,
+          contactOffset.lengthSq() - axialDistance * axialDistance,
+        );
         const weight = siliconeDeformationWeight(
-          vertexPosition.distanceToSquared(state.point),
+          radialDistanceSquared,
           radius,
           facing,
         );
