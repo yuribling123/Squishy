@@ -23,7 +23,11 @@ export default function AvatarCanvas({
   resetKey,
   onSqueeze,
 }: AvatarCanvasProps) {
-  const orbitEnabled = useSquishStore((state) => state.studioMode !== "play" || state.tool === "squish");
+  const studioMode = useSquishStore((state) => state.studioMode);
+  const tool = useSquishStore((state) => state.tool);
+  const setTool = useSquishStore((state) => state.setTool);
+  const squishEnabled = studioMode !== "play" || tool === "squish";
+  const orbitEnabled = studioMode !== "play" || tool !== "squish";
   return (
     <Canvas
       key={resetKey}
@@ -36,11 +40,15 @@ export default function AvatarCanvas({
         powerPreference: "high-performance",
       }}
       style={{ touchAction: "none" }}
+      onPointerMissed={() => {
+        if (studioMode === "play" && tool === "squish") setTool(null);
+      }}
     >
       <SceneLighting />
       <BasisAvatar
         softness={softness}
         rebound={rebound}
+        enabled={squishEnabled}
         onSqueeze={onSqueeze}
       />
       <ContactShadows

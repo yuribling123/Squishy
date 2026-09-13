@@ -34,6 +34,10 @@ export type BasisSurface = {
   normals: Float32Array;
 };
 
+export function isDragDeformablePart(name: string) {
+  return name === "RoundFullFace" || name.startsWith("Ear_");
+}
+
 export function describeBasisPart(name: string) {
   if (name.startsWith("Hair")) return "头发";
   if (name.includes("Foot")) return "小脚";

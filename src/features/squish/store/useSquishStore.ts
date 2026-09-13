@@ -8,8 +8,8 @@ import { saveCharacter } from "../services/characterStorage";
 import type { PlaygroundTool } from "../domain/tools";
 
 type SquishState = {
-  tool: PlaygroundTool;
-  setTool: (tool: PlaygroundTool) => void;
+  tool: PlaygroundTool | null;
+  setTool: (tool: PlaygroundTool | null) => void;
   impact: { id: number; direction: number; strength: number };
   strike: (direction: number, strength: number) => void;
   recipe: AvatarRecipe;

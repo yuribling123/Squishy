@@ -14,7 +14,8 @@ export function PlaygroundToolbar() {
   return (
     <div className="mt-3 text-center [&_button:focus-visible]:outline-play-accent">
       <p aria-live="polite" className="mb-3 text-xs text-play-muted">
-        {PLAYGROUND_TOOLS.find((item) => item.id === tool)?.hint}
+        {PLAYGROUND_TOOLS.find((item) => item.id === tool)?.hint
+          ?? "左右拖拽查看小人，选择捏捏后可进行形变。"}
       </p>
       <div role="group" aria-label="小道具盒" className="inline-flex items-center gap-2 rounded-2xl border border-play-line bg-transparent p-2 shadow-sm">
         {PLAYGROUND_TOOLS.map(({ id, label }) => {
