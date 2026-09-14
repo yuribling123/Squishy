@@ -2,7 +2,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { RotateCcw, ReceiptText } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { playSquishHaptic } from "../services/haptics";
 import { useSquishStore } from "../store/useSquishStore";
@@ -28,7 +27,6 @@ export function SquishStudio() {
   const editorRef = useRef<HTMLDivElement>(null);
   const previousMode = useRef(studioMode);
   const resetKey = useSquishStore((state) => state.resetKey);
-  const resetAvatar = useSquishStore((state) => state.resetAvatar);
   const squeezeCount = useSquishStore((state) => state.squeezeCount);
   const recordSqueeze = useSquishStore((state) => state.recordSqueeze);
 
@@ -69,27 +67,9 @@ export function SquishStudio() {
           <div className={`relative ${isPlaying ? "h-[calc(100svh-290px)] min-h-[200px]" : "h-[300px] sm:h-[450px] lg:h-[510px]"}`}>
             {isPlaying && (
               <div className="pointer-events-none absolute inset-x-0 top-2 z-10 flex justify-center px-4">
-
-                <div className={` absolute left-0  ${isPlaying ? "[&_button]:text-play-muted [&_button:hover]:bg-play-selected [&_button:focus-visible]:outline-play-accent" : ""}`}>
-                  <button type="button" onClick={resetAvatar} className="flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full px-4 text-xs text-muted transition hover:bg-paper-deep hover:text-ink active:translate-y-0.5 motion-reduce:transform-none">
-                    <RotateCcw size={13} aria-hidden="true" />
-                    揉回原样
-                  </button>
-
-                </div>
                 <span className="max-w-full truncate font-serif-cn text-lg tracking-widest text-play-accent">
                   {recipe.name.trim() || "小团"}
                 </span>
-
-                <button
-                  type="button"
-                  onClick={() => setStudioMode("edit")}
-                  className="absolute right-1 min-h-8 cursor-pointer items-center  rounded-full border border-play-line bg-transparent px-4 text-xs text-play-muted transition hover:bg-play-selected"
-                >
-
-                  编辑
-                </button>
-
               </div>
             )}
             <div className="absolute inset-0 cursor-grab active:cursor-grabbing">

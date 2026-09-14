@@ -18,6 +18,7 @@ type SquishState = {
   material: MaterialKind;
   softness: number;
   rebound: number;
+  autoRecover: boolean;
   soundOn: boolean;
   customizing: boolean;
   started: boolean;
@@ -36,6 +37,7 @@ type SquishState = {
   setMaterial: (material: MaterialKind) => void;
   setSoftness: (softness: number) => void;
   setRebound: (rebound: number) => void;
+  toggleAutoRecover: () => void;
   toggleSound: () => void;
   setStarted: (started: boolean) => void;
   resetAvatar: () => void;
@@ -55,6 +57,7 @@ export const useSquishStore = create<SquishState>((set, get) => ({
   material: "mochi",
   softness: 56,
   rebound: 38,
+  autoRecover: true,
   soundOn: true,
   customizing: false,
   started: false,
@@ -93,6 +96,7 @@ export const useSquishStore = create<SquishState>((set, get) => ({
   setMaterial: (material) => set({ material }),
   setSoftness: (softness) => set({ softness }),
   setRebound: (rebound) => set({ rebound }),
+  toggleAutoRecover: () => set((state) => ({ autoRecover: !state.autoRecover })),
   toggleSound: () => set((state) => ({ soundOn: !state.soundOn })),
   setStarted: (started) => set({ started }),
   resetAvatar: () => set((state) => ({ resetKey: state.resetKey + 1 })),

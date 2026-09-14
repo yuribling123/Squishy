@@ -3,7 +3,7 @@
 
 import { useGLTF } from "@react-three/drei";
 import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Group, Matrix4, Vector2, Vector3 } from "three";
 import {
   dragDeformationWeight,
@@ -30,6 +30,8 @@ type BasisAvatarProps = {
   softness: number;
   rebound: number;
   enabled: boolean;
+  autoRecover: boolean;
+  resetKey: number;
   onSqueeze: (part: string) => void;
 };
 
@@ -42,7 +44,7 @@ const inverseGroupMatrix = new Matrix4();
 const contactOffset = new Vector3();
 const localCameraPosition = new Vector3();
 
-export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvatarProps) {
+export function BasisAvatar({ softness, rebound, enabled, autoRecover, resetKey, onSqueeze }: BasisAvatarProps) {
   const { scene } = useGLTF("/models/basis-character.glb");
   const surfaces = useMemo(() => createBasisSurfaces(scene), [scene]);
   const faceSurface = useMemo(
@@ -70,9 +72,39 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
     velocity: 0,
   });
 
+  const retainCurrentDeformation = useCallback(() => {
+    const state = press.current;
+    const surface = surfaces.find((item) => item.mesh.name === state.surfaceName);
+    if (surface && !isFaceDetail(surface.mesh.name)) {
+      const positions = surface.mesh.geometry.getAttribute("position");
+      surface.rest.set(positions.array as Float32Array);
+      surface.mesh.geometry.computeVertexNormals();
+      surface.normals.set(
+        surface.mesh.geometry.getAttribute("normal").array as Float32Array,
+      );
+      const reveal = surface.mesh.geometry.getAttribute("dragReveal");
+      (reveal.array as Float32Array).fill(0);
+      reveal.needsUpdate = true;
+    }
+    state.displacement = 0;
+    state.velocity = 0;
+    state.dragTarget.set(0, 0, 0);
+    state.dragOffset.set(0, 0, 0);
+    state.dragVelocity.set(0, 0, 0);
+    state.visibleMask = null;
+    wasMoving.current = false;
+  }, [surfaces]);
+
+  const finishPress = useCallback((pointerId: number) => {
+    const state = press.current;
+    if (!state.active || pointerId !== state.pointerId) return;
+    if (!autoRecover) retainCurrentDeformation();
+    state.active = false;
+  }, [autoRecover, retainCurrentDeformation]);
+
   useEffect(() => {
     const release = (event: PointerEvent) => {
-      if (event.pointerId === press.current.pointerId) press.current.active = false;
+      finishPress(event.pointerId);
     };
     window.addEventListener("pointerup", release);
     window.addEventListener("pointercancel", release);
@@ -80,11 +112,36 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
       window.removeEventListener("pointerup", release);
       window.removeEventListener("pointercancel", release);
     };
-  }, []);
+  }, [finishPress]);
 
   useEffect(() => {
     if (!enabled) press.current.active = false;
   }, [enabled]);
+
+  useEffect(() => {
+    for (const surface of surfaces) {
+      surface.rest.set(surface.originalRest);
+      surface.normals.set(surface.originalNormals);
+      const positions = surface.mesh.geometry.getAttribute("position");
+      (positions.array as Float32Array).set(surface.originalRest);
+      positions.needsUpdate = true;
+      const normals = surface.mesh.geometry.getAttribute("normal");
+      (normals.array as Float32Array).set(surface.originalNormals);
+      normals.needsUpdate = true;
+      const reveal = surface.mesh.geometry.getAttribute("dragReveal");
+      (reveal.array as Float32Array).fill(0);
+      reveal.needsUpdate = true;
+    }
+    const state = press.current;
+    state.active = false;
+    state.displacement = 0;
+    state.velocity = 0;
+    state.dragTarget.set(0, 0, 0);
+    state.dragOffset.set(0, 0, 0);
+    state.dragVelocity.set(0, 0, 0);
+    state.visibleMask = null;
+    wasMoving.current = false;
+  }, [resetKey, surfaces]);
 
   function updatePress(event: ThreeEvent<PointerEvent>, begin = false) {
     if (!enabled) return;
@@ -140,15 +197,20 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
     state.velocity = spring.velocity;
     const radius = 0.64 + softness * 0.004;
     const constrainedDepth = safeIndentationDepth(state.displacement, radius);
-    for (const axis of ["x", "y", "z"] as const) {
-      const dragSpring = stepSpring(
-        { displacement: state.dragOffset[axis], velocity: state.dragVelocity[axis] },
-        state.active && state.dragEnabled ? state.dragTarget[axis] : 0,
-        delta,
-        rebound,
-      );
-      state.dragOffset[axis] = dragSpring.displacement;
-      state.dragVelocity[axis] = dragSpring.velocity;
+    if (state.active && state.dragEnabled) {
+      state.dragOffset.lerp(state.dragTarget, 0.6);
+      state.dragVelocity.set(0, 0, 0);
+    } else {
+      for (const axis of ["x", "y", "z"] as const) {
+        const dragSpring = stepSpring(
+          { displacement: state.dragOffset[axis], velocity: state.dragVelocity[axis] },
+          0,
+          delta,
+          rebound,
+        );
+        state.dragOffset[axis] = dragSpring.displacement;
+        state.dragVelocity[axis] = dragSpring.velocity;
+      }
     }
     const stillMoving = Math.abs(state.displacement) > 0.0002
       || Math.abs(state.velocity) > 0.001
@@ -244,10 +306,10 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
             }}
             onPointerUp={(event: ThreeEvent<PointerEvent>) => {
               event.stopPropagation();
-              press.current.active = false;
+              finishPress(event.pointerId);
               gl.domElement.releasePointerCapture?.(event.pointerId);
             }}
-            onPointerCancel={() => { press.current.active = false; }}
+            onPointerCancel={(event: ThreeEvent<PointerEvent>) => finishPress(event.pointerId)}
           />
           <primitive object={overlay} />
         </group>

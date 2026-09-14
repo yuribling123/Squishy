@@ -34,6 +34,8 @@ export function createBasisSurfaces(scene: Object3D) {
     if (object.name.startsWith("Hair")) mesh.renderOrder = 200;
     const rest = new Float32Array(geometry.getAttribute("position").array);
     const normals = new Float32Array(geometry.getAttribute("normal").array);
+    const originalRest = new Float32Array(rest);
+    const originalNormals = new Float32Array(normals);
     geometry.setAttribute("position", new BufferAttribute(new Float32Array(rest), 3).setUsage(DynamicDrawUsage));
     geometry.setAttribute(
       "dragReveal",
@@ -52,7 +54,7 @@ export function createBasisSurfaces(scene: Object3D) {
       ? 300
       : isFaceDetail(object.name) ? 301 : 100;
     overlay.raycast = () => undefined;
-    surfaces.push({ mesh, overlay, rest, normals });
+    surfaces.push({ mesh, overlay, rest, normals, originalRest, originalNormals });
   });
   return surfaces;
 }
@@ -91,6 +93,8 @@ export type BasisSurface = {
   overlay: Mesh;
   rest: Float32Array;
   normals: Float32Array;
+  originalRest: Float32Array;
+  originalNormals: Float32Array;
 };
 
 export type FaceAttachment = {

@@ -25,6 +25,7 @@ export default function AvatarCanvas({
 }: AvatarCanvasProps) {
   const studioMode = useSquishStore((state) => state.studioMode);
   const tool = useSquishStore((state) => state.tool);
+  const autoRecover = useSquishStore((state) => state.autoRecover);
   const setTool = useSquishStore((state) => state.setTool);
   const squishEnabled = studioMode !== "play" || tool === "squish";
   const orbitEnabled = studioMode !== "play" || tool !== "squish";
@@ -49,6 +50,8 @@ export default function AvatarCanvas({
         softness={softness}
         rebound={rebound}
         enabled={squishEnabled}
+        autoRecover={autoRecover}
+        resetKey={resetKey}
         onSqueeze={onSqueeze}
       />
       <ContactShadows
