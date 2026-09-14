@@ -23,11 +23,14 @@ export function ToolEffects({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className="absolute inset-0"
+      className="absolute inset-0 touch-none select-none [-webkit-touch-callout:none]"
       onPointerDownCapture={(event) => {
+        event.preventDefault();
         const rect = event.currentTarget.getBoundingClientRect();
         gesture.current = { x: event.clientX - rect.left, y: event.clientY - rect.top, endX: event.clientX - rect.left, endY: event.clientY - rect.top };
       }}
+      onContextMenu={(event) => event.preventDefault()}
+      onDragStart={(event) => event.preventDefault()}
       onPointerUpCapture={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         gesture.current.endX = event.clientX - rect.left;
