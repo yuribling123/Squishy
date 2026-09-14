@@ -11,8 +11,18 @@ import {
   stepSpring,
 } from "../physics/localIndentation";
 import {
+  deformationDepthWeight,
+  safeIndentationDepth,
+} from "../physics/deformationConstraints";
+import {
+  applyFaceAttachments,
   createBasisSurfaces,
+  createFaceAttachments,
+  createHairOccluders,
+  createVisibleVertexMask,
   describeBasisPart,
+  getDeformationSurfaceName,
+  isFaceDetail,
   isDragDeformablePart,
 } from "../services/basisModel";
 
@@ -30,10 +40,17 @@ const cameraRight = new Vector3();
 const cameraUp = new Vector3();
 const inverseGroupMatrix = new Matrix4();
 const contactOffset = new Vector3();
+const localCameraPosition = new Vector3();
 
 export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvatarProps) {
   const { scene } = useGLTF("/models/basis-character.glb");
   const surfaces = useMemo(() => createBasisSurfaces(scene), [scene]);
+  const faceSurface = useMemo(
+    () => surfaces.find((surface) => surface.mesh.name === "RoundFullFace"),
+    [surfaces],
+  );
+  const faceAttachments = useMemo(() => createFaceAttachments(surfaces), [surfaces]);
+  const hairOccluders = useMemo(() => createHairOccluders(surfaces), [surfaces]);
   const groupRef = useRef<Group>(null);
   const wasMoving = useRef(false);
   const { gl } = useThree();
@@ -43,6 +60,8 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
     point: new Vector3(),
     direction: new Vector3(0, 0, -1),
     pointerStart: new Vector2(),
+    surfaceName: "",
+    visibleMask: null as Float32Array | null,
     dragEnabled: false,
     dragTarget: new Vector3(),
     dragOffset: new Vector3(),
@@ -77,7 +96,20 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
       press.current.point.copy(event.point).applyMatrix4(inverseGroupMatrix);
       press.current.direction.copy(event.ray.direction).transformDirection(inverseGroupMatrix);
       press.current.pointerStart.set(event.clientX, event.clientY);
-      press.current.dragEnabled = isDragDeformablePart(event.object.name);
+      press.current.surfaceName = getDeformationSurfaceName(event.object.name);
+      const activeSurface = surfaces.find(
+        (surface) => surface.mesh.name === press.current.surfaceName,
+      );
+      localCameraPosition.copy(event.camera.position).applyMatrix4(inverseGroupMatrix);
+      press.current.visibleMask = activeSurface?.mesh.name === "RoundFullFace"
+        ? createVisibleVertexMask(
+          activeSurface,
+          hairOccluders,
+          localCameraPosition,
+          press.current.point,
+        )
+        : null;
+      press.current.dragEnabled = isDragDeformablePart(press.current.surfaceName);
       press.current.dragTarget.set(0, 0, 0);
       cameraRight.setFromMatrixColumn(event.camera.matrixWorld, 0).transformDirection(inverseGroupMatrix);
       cameraUp.setFromMatrixColumn(event.camera.matrixWorld, 1).transformDirection(inverseGroupMatrix);
@@ -107,6 +139,7 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
     state.displacement = spring.displacement;
     state.velocity = spring.velocity;
     const radius = 0.64 + softness * 0.004;
+    const constrainedDepth = safeIndentationDepth(state.displacement, radius);
     for (const axis of ["x", "y", "z"] as const) {
       const dragSpring = stepSpring(
         { displacement: state.dragOffset[axis], velocity: state.dragVelocity[axis] },
@@ -122,10 +155,24 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
       || state.dragOffset.lengthSq() > 0.000001
       || state.dragVelocity.lengthSq() > 0.0001;
     if (!stillMoving && !wasMoving.current) return;
+    const dragVisibility = Math.min(1, state.dragOffset.length() / 0.08);
 
     for (const surface of surfaces) {
       const positions = surface.mesh.geometry.getAttribute("position");
+      const reveal = surface.mesh.geometry.getAttribute("dragReveal");
       const array = positions.array as Float32Array;
+      const revealArray = reveal.array as Float32Array;
+      revealArray.fill(0);
+      if (isFaceDetail(surface.mesh.name)) {
+        reveal.needsUpdate = true;
+        continue;
+      }
+      if (surface.mesh.name !== state.surfaceName) {
+        array.set(surface.rest);
+        positions.needsUpdate = true;
+        reveal.needsUpdate = true;
+        continue;
+      }
       for (let index = 0; index < surface.rest.length; index += 3) {
         vertexPosition.fromArray(surface.rest, index);
         vertexNormal.fromArray(surface.normals, index);
@@ -136,16 +183,24 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
           0,
           contactOffset.lengthSq() - axialDistance * axialDistance,
         );
+        const depthWeight = deformationDepthWeight(axialDistance, radius);
         const weight = siliconeDeformationWeight(
           radialDistanceSquared,
           radius,
           facing,
-        );
+        ) * depthWeight;
         const bulge = Math.max(0, -weight);
         const dragWeight = dragDeformationWeight(
           vertexPosition.distanceToSquared(state.point),
           radius * 1.12,
         );
+        const overlayWeight = dragDeformationWeight(
+          vertexPosition.distanceToSquared(state.point),
+          radius * 1.12,
+        );
+        revealArray[index / 3] = overlayWeight
+          * dragVisibility
+          * (state.visibleMask?.[index / 3] ?? 1);
         tangentialDirection
           .copy(vertexPosition)
           .sub(state.point);
@@ -155,41 +210,47 @@ export function BasisAvatar({ softness, rebound, enabled, onSqueeze }: BasisAvat
         );
         if (tangentialDirection.lengthSq() > 0.000001) tangentialDirection.normalize();
         array[index] = surface.rest[index]
-          + state.direction.x * state.displacement * weight
-          + tangentialDirection.x * state.displacement * bulge * 0.32
+          + state.direction.x * constrainedDepth * weight
+          + tangentialDirection.x * constrainedDepth * bulge * 0.32
           + state.dragOffset.x * dragWeight;
         array[index + 1] = surface.rest[index + 1]
-          + state.direction.y * state.displacement * weight
-          + tangentialDirection.y * state.displacement * bulge * 0.32
+          + state.direction.y * constrainedDepth * weight
+          + tangentialDirection.y * constrainedDepth * bulge * 0.32
           + state.dragOffset.y * dragWeight;
         array[index + 2] = surface.rest[index + 2]
-          + state.direction.z * state.displacement * weight
-          + tangentialDirection.z * state.displacement * bulge * 0.32
+          + state.direction.z * constrainedDepth * weight
+          + tangentialDirection.z * constrainedDepth * bulge * 0.32
           + state.dragOffset.z * dragWeight;
       }
       positions.needsUpdate = true;
+      reveal.needsUpdate = true;
       surface.mesh.geometry.computeVertexNormals();
+    }
+    if (faceSurface) {
+      applyFaceAttachments(faceSurface, faceAttachments);
     }
     wasMoving.current = stillMoving;
   });
 
   return (
     <group ref={groupRef}>
-      {surfaces.map(({ mesh }) => (
-        <primitive
-          key={mesh.uuid}
-          object={mesh}
-          onPointerDown={(event: ThreeEvent<PointerEvent>) => updatePress(event, true)}
-          onPointerMove={(event: ThreeEvent<PointerEvent>) => {
-            if (press.current.active && event.pointerId === press.current.pointerId) updatePress(event);
-          }}
-          onPointerUp={(event: ThreeEvent<PointerEvent>) => {
-            event.stopPropagation();
-            press.current.active = false;
-            gl.domElement.releasePointerCapture?.(event.pointerId);
-          }}
-          onPointerCancel={() => { press.current.active = false; }}
-        />
+      {surfaces.map(({ mesh, overlay }) => (
+        <group key={mesh.uuid}>
+          <primitive
+            object={mesh}
+            onPointerDown={(event: ThreeEvent<PointerEvent>) => updatePress(event, true)}
+            onPointerMove={(event: ThreeEvent<PointerEvent>) => {
+              if (press.current.active && event.pointerId === press.current.pointerId) updatePress(event);
+            }}
+            onPointerUp={(event: ThreeEvent<PointerEvent>) => {
+              event.stopPropagation();
+              press.current.active = false;
+              gl.domElement.releasePointerCapture?.(event.pointerId);
+            }}
+            onPointerCancel={() => { press.current.active = false; }}
+          />
+          <primitive object={overlay} />
+        </group>
       ))}
     </group>
   );
